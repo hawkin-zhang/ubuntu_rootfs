@@ -1,0 +1,7 @@
+# tiny additional packages list
+
+additional_packages_list="sudo apt git vim ethtool wget"
+
+extrinsic_packages_list=""
+
+source_packages_list=""
