@@ -4,7 +4,7 @@
 #support CPU arch: armhf,arm64,powerpc ,power64
 #support version: 
 #			ubuntu 18.04		bionic
-#			ubuntu 16.04   	xenial
+#			ubuntu 16.04   		xenial
 #			ubuntu 14.04		trusty
 #			ubuntu 12.01		precise
 #more ubuntu version please see /usr/share/debootstrap/scripts
@@ -258,6 +258,10 @@ install_cfg_secondstage() {
 
 
 gen_extra_package() {
+	if [ ! -d "build/rfs/${DISTROTYPE}_${2}_${ARCH}_rootfs.d"]; then
+		echo	"build/rfs/${DISTROTYPE}_${2}_${ARCH}_rootfs.d not exit"
+	  	return
+	fi
 	echo "generate tz file "
 	cd  build/rfs/${DISTROTYPE}_${2}_${ARCH}_rootfs.d
 	sudo tar czf  $FBDIR/image/rfs/${DISTROTYPE}_${2}_${ARCH}_rootfs_`date +%Y%m%d%H%M`.tz *
@@ -305,7 +309,7 @@ gen_ubuntu_roofs $1 $2
 echo "check build/rfs/${DISTROTYPE}_$2_$ARCH_rootfs.d/usr/aptpkg/.rfsblddone"
 if [ -f build/rfs/${DISTROTYPE}_${2}_${ARCH}_rootfs.d/usr/aptpkg/.rfsblddone ]; then
     echo build/rfs/${DISTROTYPE}_${2}_${ARCH}_rootfs.d is available!
-    exit
+   exit
 fi
 
 echo "start stage 2"
